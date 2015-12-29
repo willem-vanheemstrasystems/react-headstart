@@ -58,3 +58,10 @@ You can change the port number by setting the `$PORT` environment variable befor
 ```sh
 PORT=3001 node server.js
 ```
+________________________________
+
+New React Developer Tools
+September 2, 2015 by Ben Alpert
+
+A month ago, we posted a beta of the new React developer tools. Today, we're releasing the first stable version of the new devtools. We're calling it version 0.14, but it's a full rewrite so we think of it more like a 2.0 release.
+(source: http://facebook.github.io/react/blog/2015/09/02/new-react-developer-tools.html )
