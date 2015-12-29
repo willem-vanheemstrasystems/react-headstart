@@ -1,4 +1,4 @@
-// tutorial7.js
+// tutorial8.js
 /*
  * Let's create the Comment component, which will depend on data passed in from its parent. 
  * Data passed in from a parent component is available as a 'property' on the child component. 
@@ -64,12 +64,31 @@ var Comment = React.createClass({
  * This allows us to reuse the same code for each unique comment. 
  * Now let's add some comments within our CommentList:
  */
+ 
+/* So far we've been inserting the comments directly in the source code. 
+ * Instead, let's render a blob of JSON data into the comment list. 
+ * Eventually this will come from the server, but for now, write it in your source:
+ */
+var data = [
+  {id: 1, author: "Pete Hunt", text: "This is one comment"},
+  {id: 2, author: "Jordan Walke", text: "This is *another* comment"}
+];
+/* We need to get this data into CommentList in a modular way. 
+ * Modify CommentBox and the ReactDOM.render() call to pass this data into the CommentList via props.
+ * Now that the data is available in the CommentList, let's render the comments dynamically:
+ */
 var CommentList = React.createClass({
   render: function() {
+    var commentNodes = this.props.data.map(function(comment) {
+      return (
+        <Comment author={comment.author} key={comment.id}>
+          {comment.text}
+        </Comment>
+      );
+    });
     return (
       <div className="commentList">
-        <Comment author="Pete Hunt">This is one comment</Comment>
-        <Comment author="Jordan Walke">This is *another* comment</Comment>
+        {commentNodes}
       </div>
     );
   }
@@ -91,12 +110,15 @@ var CommentForm = React.createClass({
   }
 });
 
+/* We need to get this data into CommentList in a modular way. 
+* Modify CommentBox and the ReactDOM.render() call to pass this data into the CommentList via props:
+*/
 var CommentBox = React.createClass({
   render: function() {
 	return (
 	  <div className="commentBox">
 		<h1>Comments</h1>
-		<CommentList />
+		<CommentList data={this.props.data}/>
 		<CommentForm />
 	  </div>
 	);
@@ -104,6 +126,6 @@ var CommentBox = React.createClass({
 });
 
 ReactDOM.render(
-  <CommentBox />,
+  <CommentBox data={data} />,
   document.getElementById('content')
 ); 
